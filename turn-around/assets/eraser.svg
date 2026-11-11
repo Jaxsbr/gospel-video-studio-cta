@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 500">
+<rect x="70" y="70" width="760" height="400" fill="#000" fill-opacity=".28"/>
+<g transform="translate(400 220)" stroke="#16131b" stroke-width="30" stroke-linejoin="round" stroke-linecap="round">
+<rect x="-380" y="-200" width="760" height="400" rx="40" fill="#f3ecd9"/>
+<rect x="-380" y="-200" width="300" height="400" rx="40" fill="#4f9bd8"/>
+</g></svg>

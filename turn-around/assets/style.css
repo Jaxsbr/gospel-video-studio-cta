@@ -1,0 +1,213 @@
+/* Turn Around: the next-step page.
+   One more page of the film's comic, lying on the same cutting mat: the film's paper, ink, halftone and block lettering. */
+
+@font-face { font-family: "Turn Around Block"; src: url(turn-block.ttf) format("truetype"); font-display: swap; }
+@font-face { font-family: "Noto Sans"; font-weight: 400; src: url(noto-sans-regular.woff) format("woff"); font-display: swap; }
+@font-face { font-family: "Noto Sans Display"; font-weight: 700; src: url(noto-sans-display-bold.woff) format("woff"); font-display: swap; }
+
+@property --ink-r { syntax: "<length>"; inherits: false; initial-value: 14px; }
+
+:root {
+  --ink: #16131b; --paper: #f3ecd9; --box: #fffdf3; --pencil: #7fb4e2;
+  --yellow: #ffd23f; --orange: #f28c28; --red: #e0362c; --cyan: #3ec1d3; --blue: #1e6fb8;
+  --block: "Turn Around Block", "Noto Sans Display", Impact, "Arial Black", sans-serif;
+  --cap: "Noto Sans Display", "Noto Sans", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --text: "Noto Sans", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+
+/* the green cutting mat with its ruled grid */
+body {
+  position: relative; margin: 0; padding: 12px 10px 30px; color: var(--ink); font: 400 18px/1.5 var(--text);
+  background-color: #1d403d;
+  background-image:
+    repeating-linear-gradient(0deg, transparent 0 94px, #3d7a72 94px 96px),
+    repeating-linear-gradient(90deg, transparent 0 94px, #3d7a72 94px 96px),
+    repeating-linear-gradient(0deg, transparent 0 23px, #2f625c 23px 24px),
+    repeating-linear-gradient(90deg, transparent 0 23px, #2f625c 23px 24px);
+  background-position: 10px 10px;
+}
+
+/* the sheet of paper */
+.sheet {
+  position: relative; z-index: 1; display: block; max-width: 560px; margin: 0 auto; padding: 14px 14px 24px;
+  background: var(--paper) url(paper.webp) 0 0 / 340px 340px;
+  box-shadow: 6px 8px 0 rgba(0, 0, 0, .35);
+}
+
+/* ---- inked panels (pictures rendered with the film's drawing code; each carries its own frame) */
+.art { position: relative; height: 0; }
+.art img, .art::before { position: absolute; display: block; max-width: none; }
+.art-splash { padding-top: 90%; }
+.art-splash img, .art-splash::before { left: -.667%; top: -.741%; width: 104.667%; height: 101.481%; }
+.step .art { padding-top: 46.667%; }
+.step .art img, .step .art::before { left: -.667%; top: -1.429%; width: 101.333%; height: 102.857%; }
+
+/* ---- block lettering: the film's own alphabet, with its ink outline and solid drop */
+.block { margin: 0; font-family: var(--block); font-weight: 400; font-synthesis: none; letter-spacing: 0; color: var(--fill); }
+.opening h2, .step h2, .step::before, .title::before {
+  text-shadow:
+    calc(var(--o) * 1.000) calc(var(--o) * 0.000) 0 var(--ink),
+    calc(var(--o) * 0.924) calc(var(--o) * 0.383) 0 var(--ink),
+    calc(var(--o) * 0.707) calc(var(--o) * 0.707) 0 var(--ink),
+    calc(var(--o) * 0.383) calc(var(--o) * 0.924) 0 var(--ink),
+    calc(var(--o) * 0.000) calc(var(--o) * 1.000) 0 var(--ink),
+    calc(var(--o) * -0.383) calc(var(--o) * 0.924) 0 var(--ink),
+    calc(var(--o) * -0.707) calc(var(--o) * 0.707) 0 var(--ink),
+    calc(var(--o) * -0.924) calc(var(--o) * 0.383) 0 var(--ink),
+    calc(var(--o) * -1.000) calc(var(--o) * 0.000) 0 var(--ink),
+    calc(var(--o) * -0.924) calc(var(--o) * -0.383) 0 var(--ink),
+    calc(var(--o) * -0.707) calc(var(--o) * -0.707) 0 var(--ink),
+    calc(var(--o) * -0.383) calc(var(--o) * -0.924) 0 var(--ink),
+    calc(var(--o) * -0.000) calc(var(--o) * -1.000) 0 var(--ink),
+    calc(var(--o) * 0.383) calc(var(--o) * -0.924) 0 var(--ink),
+    calc(var(--o) * 0.707) calc(var(--o) * -0.707) 0 var(--ink),
+    calc(var(--o) * 0.924) calc(var(--o) * -0.383) 0 var(--ink);
+}
+.opening h2, .step h2, .title::before {
+  filter: drop-shadow(var(--e) calc(var(--e) * 1.14) 0 var(--ext)) drop-shadow(var(--e) calc(var(--e) * 1.14) 0 var(--ext)) drop-shadow(var(--e) calc(var(--e) * 1.14) 0 var(--ext));
+}
+
+/* ---- the splash and the title */
+.splash { position: relative; container-type: inline-size; }
+.title {
+  position: absolute; left: 3%; top: -.6%; width: 94%; padding-left: 1.05em; text-indent: -1.05em;
+  font-size: 15vw; font-size: 17.6cqw; line-height: .85;
+  transform: rotate(-4deg) skewX(-10deg); transform-origin: 0 50%;
+  --o: .042em; --e: .017em; --ext: var(--red);
+}
+.title::before { content: attr(data-text); position: absolute; z-index: -1; left: 0; top: 0; width: 100%; padding-left: inherit; color: var(--ink); }
+.title span { color: var(--yellow); }
+@supports ((-webkit-background-clip: text) or (background-clip: text)) {
+  .title span {
+    color: transparent; -webkit-text-fill-color: transparent;
+    background: url(halftone.svg) 0 0 / auto 100% repeat-x, var(--yellow);
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-box-decoration-break: clone; box-decoration-break: clone;
+  }
+}
+
+/* ---- the opening */
+.opening { position: relative; z-index: 1; margin-top: -13px; }
+.opening h2 {
+  display: inline-block; margin: 0 0 13px 5px; font-size: 46px; line-height: .9;
+  transform: rotate(-3deg) skewX(-9deg); transform-origin: 0 100%;
+  --fill: var(--red); --ext: var(--ink); --o: 2.6px; --e: 1.5px;
+}
+
+/* caption boxes, as the film letters its captions: a ruled box with a block of ink behind it */
+.caption {
+  margin: 0 5px 0 0; padding: 12px 15px 14px; background: var(--box); border: 3px solid var(--ink); box-shadow: 5px 5px 0 var(--ink);
+  font: 400 18px/1.5 var(--text);
+}
+
+/* ---- the three steps */
+.steps { display: grid; gap: 36px; margin: 36px 0 0; padding: 0; list-style: none; counter-reset: step; }
+.step { position: relative; display: flex; flex-direction: column; min-width: 0; counter-increment: step; }
+.step::before {
+  content: counter(step); position: absolute; z-index: 2; left: -8px; top: -10px; width: 46px; height: 46px; padding-top: 3px;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--red); border: 3px solid var(--ink); box-shadow: 3px 3px 0 var(--ink);
+  font: 400 30px/1 var(--block); color: #fff; --o: 1.6px; transform: rotate(-6deg);
+}
+.step h2 {
+  position: relative; z-index: 1; align-self: flex-start; margin: -13px 0 11px 5px; font-size: 41px; line-height: .9;
+  transform: rotate(2.6deg) skewX(-9deg); transform-origin: 0 0;
+  --fill: var(--yellow); --ext: var(--red); --o: 2.3px; --e: 1.3px;
+}
+.step-pray h2 { --fill: #fff; --ext: var(--cyan); }
+.step-watch h2 { --fill: #fff; --ext: #3d5bb3; }
+
+/* the two links: big yellow boxes with the road's arrow */
+.button {
+  display: flex; align-items: center; justify-content: space-between; min-height: 60px; margin: 18px 5px 0 0; padding: 9px 16px 9px 18px;
+  background: var(--yellow); color: var(--ink); border: 3px solid var(--ink); box-shadow: 5px 5px 0 var(--ink);
+  font: 700 19px/1.2 var(--cap); letter-spacing: .02em; text-transform: uppercase; text-decoration: none;
+  -webkit-tap-highlight-color: transparent; transition: transform .08s, box-shadow .08s, background-color .08s;
+}
+.button span { display: inline-block; transform: skewX(-8deg); }
+.button::after {
+  content: ""; flex: none; width: 34px; height: 24px; margin-left: 14px; background: var(--ink);
+  -webkit-clip-path: polygon(0 30%, 56% 30%, 56% 0, 100% 50%, 56% 100%, 56% 70%, 0 70%); clip-path: polygon(0 30%, 56% 30%, 56% 0, 100% 50%, 56% 100%, 56% 70%, 0 70%);
+}
+.button:hover { background: #ffe36e; }
+.button:active { transform: translate(3px, 3px); box-shadow: 2px 2px 0 var(--ink); }
+.button:focus { outline: 4px solid var(--blue); outline-offset: 4px; }
+.button:focus:not(:focus-visible) { outline: none; }
+.button:focus-visible { outline: 4px solid var(--blue); outline-offset: 4px; }
+
+/* ---- the closing word: a panel still in blue pencil */
+.people { margin: 42px 0 0; padding: 12px 14px 18px; border: 2px solid var(--pencil); }
+.rough img { display: block; width: 100%; height: auto; }
+.people h2 { margin: 10px 0 8px; font: 700 25px/1.2 var(--cap); }
+.people p { margin: 0; font: 400 18px/1.55 var(--text); }
+
+footer { margin: 26px 2px 0; font: 400 15px/1.5 var(--text); color: #3b3742; text-align: center; }
+footer:empty { display: none; }
+
+.tools { display: none; }
+
+/* ---- wider screens: the sheet becomes a full comic page, three steps in one tier */
+@media (min-width: 600px) {
+  body { padding: 28px 20px 48px; }
+  .sheet { padding: 22px 22px 32px; }
+  .title { font-size: 90px; font-size: 17.6cqw; }
+}
+@media (min-width: 900px) {
+  body { padding: 44px 24px 72px; }
+  .sheet { max-width: 1040px; padding: 40px 46px 46px; }
+  .top { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 50px; align-items: center; }
+  .title { font-size: 82px; font-size: 17.6cqw; }
+  .opening { margin-top: 0; }
+  .opening h2 { margin: 0 0 22px 4px; font-size: 76px; --o: 3.4px; --e: 2.1px; }
+  .caption { padding: 15px 18px 17px; }
+  .opening .caption { font-size: 21px; }
+  .steps { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 34px; margin-top: 52px; }
+  .step h2 { font-size: 37px; }
+  .step .caption { margin-bottom: 20px; }
+  .step .button { margin-top: auto; font-size: 17px; padding-left: 14px; padding-right: 12px; }
+  .people { display: grid; grid-template-columns: minmax(0, .92fr) minmax(0, 1fr); gap: 34px; align-items: center; margin-top: 56px; padding: 22px 30px 24px 22px; }
+  .people h2 { margin-top: 0; font-size: 28px; }
+  .people p { font-size: 19px; }
+}
+@media (min-width: 900px) and (max-width: 1039px) {
+  .step h2 { font-size: 31px; }
+  .opening h2 { font-size: 62px; }
+}
+/* the artist's tools on the mat, where there is room beside the sheet */
+@media (min-width: 1240px) {
+  .tools { display: block; position: absolute; top: 0; right: 0; bottom: 0; left: 0; overflow: hidden; pointer-events: none; }
+  .tool { position: absolute; background: center / contain no-repeat; }
+  .tool-pencil { left: calc(50% - 770px); top: 150px; width: 340px; height: 41px; background-image: url(pencil.svg); transform: rotate(-73deg); }
+  .tool-ink { left: calc(50% + 535px); top: 96px; width: 190px; height: 189px; background-image: url(ink.svg); transform: scaleX(-1); }
+  .tool-eraser { left: calc(50% + 548px); top: 760px; width: 108px; height: 63px; background-image: url(eraser.svg); transform: rotate(-20deg); }
+}
+
+/* ---- with scripts on: each panel waits as a blue-pencil rough and is inked through growing halftone dots when it
+   scrolls into view, the way the film inks its panels. Words are never hidden. */
+.js .panel .art::before { content: ""; background: 0 0 / 100% 100% no-repeat; }
+.js .panel .art-splash::before { background-image: url(splash-pencil.webp); }
+.js .panel .art-pray::before { background-image: url(pray-pencil.webp); }
+.js .panel .art-read::before { background-image: url(read-pencil.webp); }
+.js .panel .art-watch::before { background-image: url(watch-pencil.webp); }
+.js .panel .art img {
+  --ink-r: -1px;
+  -webkit-mask-image: radial-gradient(circle, #000 var(--ink-r), transparent calc(var(--ink-r) + 1px));
+  mask-image: radial-gradient(circle, #000 var(--ink-r), transparent calc(var(--ink-r) + 1px));
+  -webkit-mask-size: 16px 16px; mask-size: 16px 16px;
+}
+.js .panel.in .art img { --ink-r: 14px; transition: --ink-r .55s cubic-bezier(.35, 0, .65, 1); }
+.js .panel.in .art::before { opacity: 0; transition: opacity .2s .55s; }
+.js .panel.in h2, .js .splash.in .title, .js .step.in::before { animation: slam .34s cubic-bezier(.2, 1.5, .4, 1) backwards; }
+.js .step.in h2 { animation-delay: .12s; }
+@keyframes slam { from { scale: 1.3; } }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+@media print {
+  body { background: none; padding: 0; }
+  .sheet { box-shadow: none; }
+}
